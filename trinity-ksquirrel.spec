@@ -44,8 +44,9 @@ BuildRequires:	trinity-tdelibs-devel >= %{tde_version}
 BuildRequires:	trinity-tdebase-devel >= %{tde_version}
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
-BuildRequires:	trinity-libkipi-devel
+BuildRequires:	trinity-%{_lib}kipi-devel
 BuildRequires:	trinity-libksquirrel-devel
+BuildRequires:  trinity-tde-cmake
 
 %{!?with_clang:BuildRequires:	gcc-c++}
 
