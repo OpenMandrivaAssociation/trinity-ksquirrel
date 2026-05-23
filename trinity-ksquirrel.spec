@@ -1,12 +1,7 @@
 %bcond clang 1
 
 # TDE variables
-%if "%{?tde_version}" == ""
-%define tde_version 14.1.5
-%endif
-
 %define tde_pkg ksquirrel
-
 %define tde_prefix /opt/trinity
 
 
@@ -15,21 +10,21 @@
 %define _disable_rebuild_configure 1
 
 # fixes error: Empty %files file …/debugsourcefiles.list
-%define _debugsource_template %{nil}
+%undefine _debugsource_template
 
 %define tarball_name %{tde_pkg}-trinity
 
 
 Name:		trinity-%{tde_pkg}
-Version:	0.8.0
-Release:	%{?tde_version:%{tde_version}_}4
+Version:	14.1.6
+Release:	1
 Summary:	Powerful Trinity image viewer
 Group:		Amusements/Games
 URL:		http://www.trinitydesktop.org/
 
 License:	GPLv2+
 
-Source0:		https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{tde_version}/main/applications/graphics/%{tarball_name}-%{tde_version}.tar.xz
+Source0:		https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{version}/main/applications/graphics/%{tarball_name}-%{version}.tar.xz
 
 BuildSystem:    cmake
 
@@ -40,13 +35,14 @@ BuildOption:    -DINCLUDE_INSTALL_DIR=%{tde_prefix}/include/tde
 BuildOption:    -DWITH_ALL_OPTIONS=ON -DBUILD_ALL=ON
 BuildOption:    -DWITH_GCC_VISIBILITY=%{!?with_clang:ON}%{?with_clang:OFF}
 
-BuildRequires:	trinity-tdelibs-devel >= %{tde_version}
-BuildRequires:	trinity-tdebase-devel >= %{tde_version}
+BuildRequires:	trinity-tdelibs-devel >= %{version}
+BuildRequires:	trinity-tdebase-devel >= %{version}
+BuildRequires:	trinity-%{_lib}kipi-devel >= %{version}
+BuildRequires:	trinity-libksquirrel-devel >= %{version}
+BuildRequires:  trinity-tde-cmake >= %{version}
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
-BuildRequires:	trinity-%{_lib}kipi-devel
-BuildRequires:	trinity-libksquirrel-devel
-BuildRequires:  trinity-tde-cmake
 
 %{!?with_clang:BuildRequires:	gcc-c++}
 
